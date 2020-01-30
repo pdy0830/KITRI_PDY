@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bakery">
+	<select id="bakerylist" resultType="mybatis.bakery.BakeryVO">
+	<!-- config.xml에 typeAliases를 쓰지않으면 길게 적어줘야함 -->
+		select * from bakery
+	</select>
+	
+	<insert id="insertbakery" parameterType="mybatis.bakery.BakeryVO">
+		insert into bakery values
+		 (bakery_seq.nextval,#{bakeryname},#{price},#{balance},#{bakeryimage})
+	</insert>
+	
+
+</mapper>

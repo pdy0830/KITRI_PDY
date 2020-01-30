@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+<!-- 공통관심 -->
+<bean id="cat" class="aoptest1.animal.Cat"/>
+<bean id="dog" class="aoptest1.animal.Dog"/>
+<bean id="rabbit" class="aoptest1.animal.Rabbit"/>
+<!-- 핵심관심 -->
+<bean id="common" class="aoptest1.animal.Common"/>
+
+<aop:config>
+	<aop:pointcut expression="execution(public * aoptest1.animal.*.*(..))" id="lunch"/>
+	<aop:aspect id="c" ref="common">
+		<aop:around method="printAround" pointcut-ref="lunch"/>
+	</aop:aspect>
+</aop:config>
+
+</beans>

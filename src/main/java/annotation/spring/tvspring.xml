@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+<!-- <bean id="tv" class="spring.LgTV"/>
+<bean id="tv2" class="spring.SamsungTV"/> -->
+
+<!-- annotaion 설정 읽어와 @ -->
+<context:component-scan base-package="annotation.spring"/>
+
+<bean id="lgTV" class="annotation.spring.LgTV"/>
+<!-- 아이디가 똑같고 생성된 클래스 종류가 같고 scope설정안하면 싱글톤으로 보고 하나는 무시 -->
+</beans>

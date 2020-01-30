@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- scope="singleton" : 생성자가 호출X, 첫번째에서만 생성자 호출됨
+	 scope="prototype" : 생성자가 또 호출O, 매번 생성됨 -->
+<bean id="comm1" class="spring2.BoardCommand" scope="singleton"/>
+<bean id="comm2" class="spring2.MemberCommand"/>
+<bean id="comm3" class="spring2.ProductCommand"/>
+
+</beans>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="emp">
+	<select id="allemp" resultType="emp">
+		select * from employees
+	</select>
+	
+	<select id="oneemp" resultType="emp" parameterType="int">
+		select * from employees where employee_id = #{a}
+	</select>
+	<select id="manyemp" resultType="emp" parameterType="int">
+		<![CDATA[select * from employees where employee_id <= #{a}]]>
+	</select>
+	<insert id="insertemp" parameterType="emp">
+		insert into employees (employee_id,last_name,email,hire_date,job_id) values
+		 (#{employee_id},#{last_name},#{email},sysdate,#{job_id})
+	</insert>
+	
+	<update id="updateemp" parameterType="emp">
+	<!-- 사번 1000번 사원의 성을 '김'으로 변경 -->
+		<!-- update employees set last_name=#{last_name} where employee_id=#{employee_id} -->
+	
+	<!-- 사번 1000번 사원의부서 80번으로 변경 -->
+		update employees set department_id=#{department_id} where employee_id=#{employee_id}
+	</update>
+	<!-- 사번 1000번 사원 삭제 -->
+	<delete id="deleteemp" parameterType="int">`
+		delete employees where employee_id=#{employee_id}
+	</delete>
+	
+	<select id="empcnt" resultType="int">
+		select count(*) from employees
+	</select>
+
+	<select id="emppaging" resultType="emp" parameterType="int[]"> <!-- 받아야하는 파라미터값이 2개이므로 int형의 배열 선언 -->
+	select r, employee_id, last_name, hire_date
+ 	from(
+  		select rownum r, employee_id, last_name, hire_date
+  		from (select * from employees order by hire_date)
+	)
+	where r between
+	<foreach collection="array" item="r" separator="and">
+		#{r}
+	</foreach>
+ 	<!-- where r between #{array[0]} and #{array[1]} -->
+	</select>
+	
+	<!-- {10,50,80} -->
+	<!-- <select id="empdeptid" resultType="emp" parameterType="int[]"> -->
+	<select id="empdeptid" resultType="emp" parameterType="java.util.List">
+		select employee_id, last_name, department_id
+		from employees
+		where department_id in
+		<!-- <foreach open="(" close=")" separator="," collection="array" item="deptid"> -->
+		<foreach open="(" close=")" separator="," collection="list" item="deptid">
+			#{deptid}
+		</foreach>
+	</select>
+	
+	<select id="empdynamic" resultType="emp" parameterType="java.util.Map">
+		select first_name, last_name
+		from employees
+		where ${column}=#{word}
+	</select>
+	
+	<select id="joblist" resultType="String">
+		select job_id from jobs
+	</select>	
+	
+</mapper>
